@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ course.title }} - AI-LMS</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        .navbar {
+            background: #1e3a8a;
+            color: white;
+            padding: 20px 50px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            font-size: 24px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 50px auto;
+        }
+
+        .course-box {
+            background: white;
+            padding: 40px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            color: #1e3a8a;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .badge {
+            display: inline-block;
+
+            background: #e0e7ff;
+            color: #1e3a8a;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            margin-right: 8px;
+
+            font-size: 14px;
+        }
+
+        .enroll-btn {
+            display: inline-block;
+
+            margin-top: 30px;
+
+            padding: 12px 25px;
+
+            background: #1e3a8a;
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 6px;
+
+            border: none;
+
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        .enroll-btn:hover {
+            background: #162d6b;
+        }
+
+        .enrolled {
+            margin-top: 30px;
+
+            padding: 15px;
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            border-radius: 8px;
+        }
+
+        .back {
+            display: inline-block;
+
+            margin-top: 25px;
+
+            color: #1e3a8a;
+
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <h1>AI-LMS</h1>
+
+        <div>
+
+            <a href="/dashboard">Dashboard</a>
+
+            <a href="/courses">Courses</a>
+
+            <a href="/logout">Logout</a>
+
+        </div>
+
+    </div>
+
+
+    <!-- COURSE DETAILS -->
+
+    <div class="container">
+
+        <div class="course-box">
+
+            <h2>
+                {{ course.title }}
+            </h2>
+
+            <p class="description">
+                {{ course.description }}
+            </p>
+
+            <span class="badge">
+                {{ course.subject }}
+            </span>
+
+            <span class="badge">
+                {{ course.difficulty }}
+            </span>
+
+
+            {% if enrollment %}
+
+                <div class="enrolled">
+
+                    <strong>
+                        You are already enrolled in this course.
+                    </strong>
+
+                    <br>
+
+                    Progress:
+                    {{ enrollment.progress }}%
+
+                </div>
+
+            {% else %}
+
+                <form
+                    method="POST"
+                    action="{{ url_for('enroll_course', course_id=course.id) }}"
+                >
+
+                    <button
+                        type="submit"
+                        class="enroll-btn"
+                    >
+                        Enroll Now
+                    </button>
+
+                </form>
+
+            {% endif %}
+
+
+            <br>
+
+            <a
+                href="/courses"
+                class="back"
+            >
+                ← Back to Courses
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -6,31 +6,34 @@ from extensions import db
 
 from models.user_model import User
 from models.course_model import Course
+from models.enrollment_model import Enrollment
 
 
-# --------------------------------------------------
-# FLASK APP CONFIGURATION
-# --------------------------------------------------
+# ============================================================
+# FLASK APPLICATION
+# ============================================================
 
 app = Flask(__name__)
+
+# Load configuration
 app.config.from_object(Config)
 
 # Initialize database
 db.init_app(app)
 
 
-# --------------------------------------------------
-# HOME PAGE
-# --------------------------------------------------
+# ============================================================
+# HOME
+# ============================================================
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
-# --------------------------------------------------
+# ============================================================
 # REGISTER
-# --------------------------------------------------
+# ============================================================
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -41,7 +44,7 @@ def register():
         email = request.form.get("email")
         password = request.form.get("password")
 
-        # Check whether email already exists
+        # Check if email already exists
         existing_user = User.query.filter_by(email=email).first()
 
         if existing_user:
@@ -50,7 +53,7 @@ def register():
         # Hash password
         hashed_password = generate_password_hash(password)
 
-        # Create user
+        # Create new user
         new_user = User(
             name=name,
             email=email,
@@ -66,9 +69,9 @@ def register():
     return render_template("register.html")
 
 
-# --------------------------------------------------
+# ============================================================
 # LOGIN
-# --------------------------------------------------
+# ============================================================
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -91,16 +94,16 @@ def login():
                     user.password,
                     password
                 )
-            except ValueError:
+            except (ValueError, TypeError):
                 password_valid = False
 
-            # Support old passwords if necessary
+            # Support old plaintext passwords if any exist
             if not password_valid:
                 password_valid = user.password == password
 
             if password_valid:
 
-                # Store user information
+                # Store user information in session
                 session["user_id"] = user.id
                 session["user_name"] = user.name
                 session["user_role"] = user.role
@@ -112,18 +115,18 @@ def login():
     return render_template("login.html")
 
 
-# --------------------------------------------------
+# ============================================================
 # DASHBOARD
-# --------------------------------------------------
+# ============================================================
 
 @app.route("/dashboard")
 def dashboard():
 
-    # Check login
+    # User must be logged in
     if "user_id" not in session:
         return redirect(url_for("login"))
 
-    # Get all courses from database
+    # Get all courses
     courses = Course.query.all()
 
     return render_template(
@@ -133,9 +136,9 @@ def dashboard():
     )
 
 
-# --------------------------------------------------
+# ============================================================
 # LOGOUT
-# --------------------------------------------------
+# ============================================================
 
 @app.route("/logout")
 def logout():
@@ -145,16 +148,18 @@ def logout():
     return redirect(url_for("login"))
 
 
-# --------------------------------------------------
-# COURSES PAGE
-# --------------------------------------------------
+# ============================================================
+# COURSES
+# ============================================================
 
 @app.route("/courses")
 def courses():
 
+    # User must be logged in
     if "user_id" not in session:
         return redirect(url_for("login"))
 
+    # Get all courses
     all_courses = Course.query.all()
 
     return render_template(
@@ -163,9 +168,83 @@ def courses():
     )
 
 
-# --------------------------------------------------
-# TEMPORARY COURSE CREATION ROUTE
-# --------------------------------------------------
+# ============================================================
+# COURSE DETAILS
+# ============================================================
+
+@app.route("/course/<int:course_id>")
+def course_details(course_id):
+
+    # User must be logged in
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    # Find course
+    course = Course.query.get_or_404(course_id)
+
+    # Check whether user is already enrolled
+    enrollment = Enrollment.query.filter_by(
+        user_id=session["user_id"],
+        course_id=course.id
+    ).first()
+
+    return render_template(
+        "course_details.html",
+        course=course,
+        enrollment=enrollment
+    )
+
+
+# ============================================================
+# ENROLL IN COURSE
+# ============================================================
+
+@app.route("/enroll/<int:course_id>", methods=["POST"])
+def enroll_course(course_id):
+
+    # User must be logged in
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    # Find course
+    course = Course.query.get_or_404(course_id)
+
+    # Check existing enrollment
+    existing_enrollment = Enrollment.query.filter_by(
+        user_id=session["user_id"],
+        course_id=course.id
+    ).first()
+
+    if existing_enrollment:
+        return redirect(
+            url_for(
+                "course_details",
+                course_id=course.id
+            )
+        )
+
+    # Create enrollment
+    enrollment = Enrollment(
+        user_id=session["user_id"],
+        course_id=course.id,
+        progress=0,
+        completed=False
+    )
+
+    db.session.add(enrollment)
+    db.session.commit()
+
+    return redirect(
+        url_for(
+            "course_details",
+            course_id=course.id
+        )
+    )
+
+
+# ============================================================
+# TEMPORARY: ADD COURSE
+# ============================================================
 
 @app.route("/add-course")
 def add_course():
@@ -183,17 +262,17 @@ def add_course():
     return "Course added successfully!"
 
 
-# --------------------------------------------------
-# CREATE DATABASE TABLES
-# --------------------------------------------------
+# ============================================================
+# DATABASE INITIALIZATION
+# ============================================================
 
 with app.app_context():
     db.create_all()
 
 
-# --------------------------------------------------
-# RUN FLASK APPLICATION
-# --------------------------------------------------
+# ============================================================
+# RUN APPLICATION
+# ============================================================
 
 if __name__ == "__main__":
     app.run(debug=True)
