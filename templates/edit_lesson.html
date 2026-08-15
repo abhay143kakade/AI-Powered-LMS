@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Lesson - AI-LMS</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #23429a;
+        }
+
+        .course {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccd3e0;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        textarea {
+            min-height: 250px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 25px;
+            background: #23429a;
+            color: white;
+            border: none;
+            padding: 13px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #172f78;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 25px;
+            color: #23429a;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h1>
+                Edit Lesson
+            </h1>
+
+            <div class="course">
+                Course:
+                <strong>{{ course.title }}</strong>
+            </div>
+
+
+            <form
+                method="POST"
+                action="{{ url_for('admin_lessons.edit_lesson', lesson_id=lesson.id) }}"
+            >
+
+                <label>
+                    Lesson Title
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    value="{{ lesson.title }}"
+                    required
+                >
+
+
+                <label>
+                    Lesson Order
+                </label>
+
+                <input
+                    type="number"
+                    name="lesson_order"
+                    value="{{ lesson.lesson_order }}"
+                    min="1"
+                    required
+                >
+
+
+                <label>
+                    Lesson Content
+                </label>
+
+                <textarea
+                    name="content"
+                    required
+                >{{ lesson.content }}</textarea>
+
+
+                <button type="submit">
+                    Update Lesson
+                </button>
+
+            </form>
+
+
+            <a
+                href="{{ url_for('admin_lessons.manage_lessons', course_id=course.id) }}"
+                class="back"
+            >
+                ← Back to Lessons
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

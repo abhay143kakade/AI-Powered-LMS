@@ -4,100 +4,381 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Login - AI-LMS</title>
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: #f4f7fb;
+            color: #222;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            background: #1e3a8a;
+            color: white;
+
+            padding: 18px 5%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .home-link {
+            color: white;
+            text-decoration: none;
+
+            padding: 9px 16px;
+
+            border: 1px solid white;
+            border-radius: 7px;
+        }
+
+        .home-link:hover {
+            background: white;
+            color: #1e3a8a;
+        }
+
+
+        /* =========================
+           LOGIN CONTAINER
+        ========================== */
+
+        .page {
+            min-height: calc(100vh - 70px);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px 20px;
         }
 
         .container {
-            width: 400px;
-            margin: 80px auto;
+            width: 100%;
+            max-width: 420px;
+
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+            padding: 40px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 6px 25px rgba(0, 0, 0, 0.08);
         }
+
+
+        /* =========================
+           HEADER
+        ========================== */
 
         h2 {
             text-align: center;
+
             color: #1e3a8a;
+
+            margin-top: 0;
+            margin-bottom: 10px;
+
+            font-size: 30px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #666;
+
+            margin-bottom: 30px;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           FORM
+        ========================== */
+
+        label {
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            box-sizing: border-box;
+
+            padding: 13px;
+
             border: 1px solid #ccc;
-            border-radius: 5px;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            outline: none;
         }
+
+        input:focus {
+            border-color: #1e3a8a;
+
+            box-shadow:
+                0 0 0 2px rgba(30, 58, 138, 0.1);
+        }
+
+
+        /* =========================
+           LOGIN BUTTON
+        ========================== */
 
         button {
             width: 100%;
-            padding: 12px;
-            margin-top: 10px;
+
+            padding: 13px;
+
+            margin-top: 5px;
+
             background: #1e3a8a;
+
             color: white;
+
             border: none;
-            border-radius: 5px;
+
+            border-radius: 7px;
+
             cursor: pointer;
+
+            font-size: 16px;
+
+            font-weight: bold;
         }
+
+        button:hover {
+            background: #172f78;
+        }
+
+
+        /* =========================
+           REGISTER
+        ========================== */
 
         .register-link {
             text-align: center;
-            margin-top: 15px;
+
+            margin-top: 22px;
+
+            color: #555;
+
+            font-size: 15px;
+        }
+
+        .register-link a {
+            color: #1e3a8a;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           BACK HOME
+        ========================== */
+
+        .back-home {
+            text-align: center;
+
+            margin-top: 18px;
+        }
+
+        .back-home a {
+            color: #666;
+
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+        .back-home a:hover {
+            color: #1e3a8a;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 500px) {
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .container {
+                padding: 30px 22px;
+            }
+
+            h2 {
+                font-size: 26px;
+            }
+
         }
 
     </style>
 
 </head>
 
+
 <body>
 
-    <div class="container">
 
-        <h2>AI-LMS Login</h2>
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
-        <form method="POST">
+    <div class="navbar">
 
-            <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                required
+        <div class="logo">
+            AI-LMS
+        </div>
+
+        <a
+            href="{{ url_for('home') }}"
+            class="home-link"
+        >
+            Home
+        </a>
+
+    </div>
+
+
+    <!-- =========================
+         LOGIN PAGE
+    ========================== -->
+
+    <div class="page">
+
+        <div class="container">
+
+            <h2>
+                Welcome Back
+            </h2>
+
+            <div class="subtitle">
+                Login to continue your learning journey.
+            </div>
+
+
+            <!--
+                Flask sends this form to:
+                POST /login
+            -->
+
+            <form
+                method="POST"
+                action="{{ url_for('login') }}"
             >
 
-            <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                required
-            >
 
-            <button type="submit">
-                Login
-            </button>
+                <div class="form-group">
 
-        </form>
+                    <label for="email">
+                        Email
+                    </label>
 
-        <div class="register-link">
+                    <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
 
-            Don't have an account?
+                </div>
 
-            <a href="/register">
-                Register
-            </a>
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        id="password"
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+
+            <div class="register-link">
+
+                Don't have an account?
+
+                <a href="{{ url_for('register') }}">
+                    Register
+                </a>
+
+            </div>
+
+
+            <div class="back-home">
+
+                <a href="{{ url_for('home') }}">
+                    ← Back to Home
+                </a>
+
+            </div>
 
         </div>
 
     </div>
+
 
 </body>
 

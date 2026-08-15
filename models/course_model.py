@@ -3,6 +3,8 @@ from extensions import db
 
 class Course(db.Model):
 
+    __tablename__ = "course"
+
     id = db.Column(
         db.Integer,
         primary_key=True
@@ -30,4 +32,3 @@ class Course(db.Model):
 
     def __repr__(self):
         return f"<Course {self.title}>"
-    

@@ -12,71 +12,152 @@
 
     <title>{{ course.title }} - AI-LMS</title>
 
+
     <style>
 
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
+
         body {
+
+            margin: 0;
+
             font-family: Arial, sans-serif;
+
             background: #f4f7fb;
+
             color: #222;
         }
 
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
         .navbar {
+
             background: #1e3a8a;
+
             color: white;
-            padding: 20px 50px;
+
+            padding: 18px 5%;
 
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
         }
 
-        .navbar h1 {
-            font-size: 24px;
+
+        .logo {
+
+            font-size: 25px;
+
+            font-weight: bold;
         }
 
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin-left: 25px;
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 10px;
+
+            align-items: center;
         }
+
+
+        .nav-links a {
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 8px 12px;
+
+            border-radius: 6px;
+        }
+
+
+        .nav-links a:hover {
+
+            background: rgba(255,255,255,0.15);
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================== */
 
         .container {
+
             width: 90%;
-            max-width: 900px;
-            margin: 50px auto;
+
+            max-width: 1100px;
+
+            margin: 40px auto;
         }
 
-        .course-box {
+
+        /* =========================
+           COURSE CARD
+        ========================== */
+
+        .course-card {
+
             background: white;
+
             padding: 40px;
 
-            border-radius: 12px;
+            border-radius: 16px;
 
             box-shadow:
-                0 5px 20px rgba(0, 0, 0, 0.08);
+                0 6px 25px
+                rgba(0,0,0,0.08);
         }
 
-        h2 {
+
+        h1 {
+
             color: #1e3a8a;
+
+            margin-top: 0;
+
+            font-size: 36px;
+        }
+
+
+        .description {
+
+            color: #555;
+
+            font-size: 18px;
+
+            line-height: 1.7;
+
             margin-bottom: 20px;
         }
 
-        .description {
-            color: #555;
-            line-height: 1.7;
-            margin-bottom: 25px;
+
+        /* =========================
+           TAGS
+        ========================== */
+
+        .tags {
+
+            margin: 20px 0;
         }
 
-        .badge {
+
+        .tag {
+
             display: inline-block;
 
             background: #e0e7ff;
+
             color: #1e3a8a;
 
             padding: 7px 14px;
@@ -86,149 +167,913 @@
             margin-right: 8px;
 
             font-size: 14px;
+
+            font-weight: bold;
         }
 
+
+        /* =========================
+           ENROLL
+        ========================== */
+
+        .enroll-box {
+
+            background: #f8faff;
+
+            border: 1px solid #dbe3f5;
+
+            padding: 25px;
+
+            border-radius: 12px;
+
+            margin: 25px 0;
+        }
+
+
+        .enroll-box h3 {
+
+            margin-top: 0;
+
+            color: #1e3a8a;
+        }
+
+
         .enroll-btn {
+
+            background: #1e3a8a;
+
+            color: white;
+
+            border: none;
+
+            padding: 13px 25px;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .enroll-btn:hover {
+
+            background: #162d6b;
+        }
+
+
+        /* =========================
+           ENROLLED
+        ========================== */
+
+        .enrolled-box {
+
+            background: #eef4ff;
+
+            border: 1px solid #cddcff;
+
+            padding: 25px;
+
+            border-radius: 12px;
+
+            margin: 25px 0;
+        }
+
+
+        .enrolled-box h3 {
+
+            margin-top: 0;
+
+            color: #1e3a8a;
+        }
+
+
+        /* =========================
+           PROGRESS
+        ========================== */
+
+        .progress-container {
+
+            margin-top: 18px;
+        }
+
+
+        .progress-label {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 8px;
+
+            color: #1e3a8a;
+
+            font-weight: bold;
+        }
+
+
+        .progress-bar {
+
+            width: 100%;
+
+            height: 15px;
+
+            background: #ddd;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+
+        .progress {
+
+            height: 100%;
+
+            background: #1e3a8a;
+
+            border-radius: 10px;
+        }
+
+
+        /* =========================
+           COURSE COMPLETED
+        ========================== */
+
+        .completed-box {
+
+            background: linear-gradient(
+                135deg,
+                #eff6ff,
+                #ffffff
+            );
+
+            border: 2px solid #1e3a8a;
+
+            padding: 35px;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            margin: 25px 0;
+        }
+
+
+        .badge-icon {
+
+            font-size: 60px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .completed-box h2 {
+
+            color: #1e3a8a;
+
+            margin: 10px 0;
+        }
+
+
+        .completed-badge {
+
             display: inline-block;
 
-            margin-top: 30px;
+            background: #1e3a8a;
+
+            color: white;
 
             padding: 12px 25px;
 
+            border-radius: 25px;
+
+            font-weight: bold;
+
+            margin: 15px 0;
+        }
+
+
+        /* =========================
+           LESSONS
+        ========================== */
+
+        .lessons-section {
+
+            margin-top: 40px;
+        }
+
+
+        .lessons-section h2 {
+
+            color: #1e3a8a;
+
+            margin-bottom: 20px;
+        }
+
+
+        .lesson {
+
+            background: #f8faff;
+
+            border: 1px solid #dfe5f2;
+
+            padding: 20px;
+
+            margin: 15px 0;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+
+        .lesson-info {
+
+            flex: 1;
+        }
+
+
+        .lesson-number {
+
+            color: #1e3a8a;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 6px;
+        }
+
+
+        .lesson-info h3 {
+
+            margin: 0 0 8px;
+
+            color: #222;
+        }
+
+
+        .lesson-info p {
+
+            margin: 0;
+
+            color: #666;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================== */
+
+        .start-btn {
+
             background: #1e3a8a;
+
             color: white;
 
             text-decoration: none;
 
-            border-radius: 6px;
+            padding: 11px 20px;
 
-            border: none;
+            border-radius: 8px;
 
-            cursor: pointer;
+            white-space: nowrap;
 
-            font-size: 16px;
+            font-weight: bold;
         }
 
-        .enroll-btn:hover {
+
+        .start-btn:hover {
+
             background: #162d6b;
         }
 
-        .enrolled {
-            margin-top: 30px;
 
-            padding: 15px;
+        .review-btn {
 
-            background: #dcfce7;
+            background: #64748b;
 
-            color: #166534;
+            color: white;
+
+            text-decoration: none;
+
+            padding: 10px 18px;
 
             border-radius: 8px;
+
+            white-space: nowrap;
         }
 
-        .back {
+
+        .completed-badge {
+
+            background: #d8f8df;
+
+            color: #08752b;
+
+            padding: 9px 14px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
             display: inline-block;
 
-            margin-top: 25px;
+            margin-right: 8px;
+        }
+
+
+        .lesson-completed {
+
+            background: #effbf2;
+
+            border-color: #b9e8c3;
+        }
+
+
+        .locked {
+
+            background: #f1f1f1;
+
+            color: #777;
+
+            padding: 10px 18px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================
+           NO LESSONS
+        ========================== */
+
+        .no-lessons {
+
+            background: #fff3cd;
+
+            color: #856404;
+
+            padding: 20px;
+
+            border-radius: 10px;
+        }
+
+
+        /* =========================
+           BACK
+        ========================== */
+
+        .back {
+
+            display: inline-block;
+
+            margin-top: 30px;
 
             color: #1e3a8a;
 
             text-decoration: none;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+
+            .nav-links {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+
+            .course-card {
+
+                padding: 25px;
+            }
+
+
+            h1 {
+
+                font-size: 28px;
+            }
+
+
+            .lesson {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .start-btn,
+            .review-btn,
+            .locked {
+
+                width: 100%;
+
+                text-align: center;
+            }
+
         }
 
     </style>
 
 </head>
 
+
 <body>
 
-    <!-- NAVBAR -->
 
-    <div class="navbar">
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
-        <h1>AI-LMS</h1>
+<div class="navbar">
 
-        <div>
 
-            <a href="/dashboard">Dashboard</a>
+    <div class="logo">
+        AI-LMS
+    </div>
 
-            <a href="/courses">Courses</a>
 
-            <a href="/logout">Logout</a>
+    <div class="nav-links">
 
-        </div>
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+
+        <a href="{{ url_for('courses') }}">
+            Courses
+        </a>
+
+
+        <a href="{{ url_for('my_courses') }}">
+            My Courses
+        </a>
+
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
 
     </div>
 
 
-    <!-- COURSE DETAILS -->
-
-    <div class="container">
-
-        <div class="course-box">
-
-            <h2>
-                {{ course.title }}
-            </h2>
-
-            <p class="description">
-                {{ course.description }}
-            </p>
-
-            <span class="badge">
-                {{ course.subject }}
-            </span>
-
-            <span class="badge">
-                {{ course.difficulty }}
-            </span>
+</div>
 
 
-            {% if enrollment %}
 
-                <div class="enrolled">
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-                    <strong>
-                        You are already enrolled in this course.
-                    </strong>
+<div class="container">
 
-                    <br>
 
-                    Progress:
-                    {{ enrollment.progress }}%
+    <div class="course-card">
 
-                </div>
 
-            {% else %}
+        <!-- COURSE INFORMATION -->
+
+        <h1>
+            {{ course.title }}
+        </h1>
+
+
+        <p class="description">
+            {{ course.description }}
+        </p>
+
+
+        <div class="tags">
+
+            {% if course.subject %}
+
+                <span class="tag">
+                    {{ course.subject }}
+                </span>
+
+            {% endif %}
+
+
+            {% if course.difficulty %}
+
+                <span class="tag">
+                    {{ course.difficulty }}
+                </span>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- =================================================
+             NOT ENROLLED
+        ================================================== -->
+
+        {% if not enrollment %}
+
+
+            <div class="enroll-box">
+
+                <h3>
+                    Start Learning
+                </h3>
+
+                <p>
+                    Enroll in this course to access
+                    all lessons and track your progress.
+                </p>
+
 
                 <form
                     method="POST"
-                    action="{{ url_for('enroll_course', course_id=course.id) }}"
+                    action="{{ url_for(
+                        'enroll_course',
+                        course_id=course.id
+                    ) }}"
                 >
 
                     <button
                         type="submit"
                         class="enroll-btn"
                     >
-                        Enroll Now
+                        Enroll in Course
                     </button>
 
                 </form>
 
+            </div>
+
+
+        {% else %}
+
+
+            <!-- =================================================
+                 COURSE COMPLETED
+            ================================================== -->
+
+            {% if enrollment.completed %}
+
+
+                <div class="completed-box">
+
+
+                    <div class="badge-icon">
+                        🏆
+                    </div>
+
+
+                    <h2>
+                        🎉 Congratulations!
+                    </h2>
+
+
+                    <p>
+                        You have successfully completed
+                        <strong>{{ course.title }}</strong>.
+                    </p>
+
+
+                    <div class="completed-badge">
+                        🏆 Course Completed
+                    </div>
+
+
+                    <p>
+                        Excellent work! You completed
+                        all the lessons in this course.
+                    </p>
+
+
+                    <div class="progress-container">
+
+                        <div class="progress-label">
+
+                            <span>
+                                Final Progress
+                            </span>
+
+                            <span>
+                                100%
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress"
+                                style="width: 100%;"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            {% else %}
+
+
+                <!-- =================================================
+                     COURSE IN PROGRESS
+                ================================================== -->
+
+                <div class="enrolled-box">
+
+
+                    <h3>
+                        ✓ You are enrolled
+                    </h3>
+
+
+                    <p>
+                        Continue learning from your lessons below.
+                    </p>
+
+
+                    <div class="progress-container">
+
+
+                        <div class="progress-label">
+
+                            <span>
+                                Course Progress
+                            </span>
+
+                            <span>
+                                {{ enrollment.progress }}%
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress"
+                                style="width: {{ enrollment.progress }}%;"
+                            ></div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
             {% endif %}
 
 
-            <br>
+        {% endif %}
 
-            <a
-                href="/courses"
-                class="back"
-            >
-                ← Back to Courses
-            </a>
+
+
+        <!-- =================================================
+             LESSONS
+        ================================================== -->
+
+        <div class="lessons-section">
+
+
+            <h2>
+                Course Lessons
+            </h2>
+
+
+            {% if lessons %}
+
+
+                {% for lesson in lessons %}
+
+
+                    {% if enrollment %}
+
+
+                        <!-- =====================================
+                             STUDENT IS ENROLLED
+                        ====================================== -->
+
+
+                        {% if lesson.id in completed_lesson_ids %}
+
+
+                            <div class="lesson lesson-completed">
+
+
+                                <div class="lesson-info">
+
+
+                                    <div class="lesson-number">
+
+                                        LESSON
+                                        {{ lesson.lesson_order }}
+
+                                    </div>
+
+
+                                    <h3>
+                                        {{ lesson.title }}
+                                    </h3>
+
+
+                                    <p>
+                                        ✓ You have completed this lesson.
+                                    </p>
+
+
+                                </div>
+
+
+                                <div>
+
+
+                                    <span class="completed-badge">
+                                        ✓ Completed
+                                    </span>
+
+
+                                    <a
+                                        href="{{ url_for(
+                                            'lesson',
+                                            lesson_id=lesson.id
+                                        ) }}"
+                                        class="review-btn"
+                                    >
+                                        Review
+                                    </a>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        {% else %}
+
+
+                            <div class="lesson">
+
+
+                                <div class="lesson-info">
+
+
+                                    <div class="lesson-number">
+
+                                        LESSON
+                                        {{ lesson.lesson_order }}
+
+                                    </div>
+
+
+                                    <h3>
+                                        {{ lesson.title }}
+                                    </h3>
+
+
+                                    <p>
+                                        Start learning this lesson.
+                                    </p>
+
+
+                                </div>
+
+
+                                <a
+                                    href="{{ url_for(
+                                        'lesson',
+                                        lesson_id=lesson.id
+                                    ) }}"
+                                    class="start-btn"
+                                >
+                                    Start Lesson →
+                                </a>
+
+
+                            </div>
+
+
+                        {% endif %}
+
+
+                    {% else %}
+
+
+                        <!-- =====================================
+                             STUDENT NOT ENROLLED
+                        ====================================== -->
+
+                        <div class="lesson">
+
+
+                            <div class="lesson-info">
+
+
+                                <div class="lesson-number">
+
+                                    LESSON
+                                    {{ lesson.lesson_order }}
+
+                                </div>
+
+
+                                <h3>
+                                    {{ lesson.title }}
+                                </h3>
+
+
+                                <p>
+                                    Enroll in the course
+                                    to access this lesson.
+                                </p>
+
+
+                            </div>
+
+
+                            <div class="locked">
+                                🔒 Locked
+                            </div>
+
+
+                        </div>
+
+
+                    {% endif %}
+
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <div class="no-lessons">
+
+                    No lessons have been added
+                    to this course yet.
+
+                </div>
+
+
+            {% endif %}
+
 
         </div>
 
+
+
+        <!-- BACK -->
+
+        <a
+            href="{{ url_for('courses') }}"
+            class="back"
+        >
+            ← Back to Courses
+        </a>
+
+
     </div>
+
+
+</div>
+
 
 </body>
 

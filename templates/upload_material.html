@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Upload Material - AI-LMS</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 70px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            color: #23429a;
+        }
+
+        .lesson {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 15px;
+
+            border: 1px solid #ddd;
+            border-radius: 8px;
+
+            background: #fafafa;
+        }
+
+        .btn {
+            margin-top: 25px;
+
+            background: #23429a;
+            color: white;
+
+            border: none;
+
+            padding: 13px 25px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        .error {
+            background: #ffe0e0;
+            color: #b91c1c;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+        }
+
+        .back {
+            display: inline-block;
+
+            margin-top: 25px;
+
+            color: #23429a;
+
+            text-decoration: none;
+        }
+
+        .allowed {
+            color: #666;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>
+            Upload Study Material
+        </h1>
+
+        <div class="lesson">
+
+            Lesson:
+            <strong>
+                {{ lesson.title }}
+            </strong>
+
+        </div>
+
+
+        {% if error %}
+
+            <div class="error">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            <input
+                type="file"
+                name="file"
+                required
+            >
+
+
+            <div class="allowed">
+
+                Allowed:
+                PDF, PPT, PPTX, DOC, DOCX, TXT
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                📤 Upload File
+            </button>
+
+        </form>
+
+
+        <a
+            href="{{ url_for(
+                'admin_materials.manage_materials',
+                lesson_id=lesson.id
+            ) }}"
+            class="back"
+        >
+            ← Back to Materials
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

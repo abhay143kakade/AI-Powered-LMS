@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ lesson.title }} - AI-LMS</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+            background: #24449a;
+            color: white;
+            padding: 20px 5%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* =====================================================
+           CONTAINER
+        ===================================================== */
+
+        .container {
+            width: 90%;
+            max-width: 950px;
+            margin: 40px auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+
+            color: #24449a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* =====================================================
+           LESSON CARD
+        ===================================================== */
+
+        .lesson-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+
+            box-shadow:
+                0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        .course-name {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .lesson-title {
+            color: #24449a;
+            font-size: 36px;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .lesson-content {
+            font-size: 18px;
+            line-height: 1.8;
+            white-space: pre-line;
+            margin-bottom: 35px;
+        }
+
+        /* =====================================================
+           STUDY MATERIALS
+        ===================================================== */
+
+        .materials-section {
+            margin-top: 35px;
+            padding-top: 30px;
+
+            border-top: 1px solid #ddd;
+        }
+
+        .materials-section h2 {
+            color: #172554;
+            margin-bottom: 20px;
+        }
+
+        .material-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            margin-bottom: 12px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        .material-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .material-type {
+            color: #777;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .open-btn {
+            background: #24449a;
+            color: white;
+
+            padding: 10px 16px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            white-space: nowrap;
+
+            font-weight: bold;
+        }
+
+        .open-btn:hover {
+            background: #18357d;
+        }
+
+        .no-materials {
+            background: #f1f5f9;
+            padding: 18px;
+            border-radius: 10px;
+            color: #64748b;
+        }
+
+        /* =====================================================
+           COMPLETION
+        ===================================================== */
+
+        .completed-box {
+            background: #d9f7df;
+            color: #18752c;
+
+            padding: 18px;
+            border-radius: 8px;
+
+            font-weight: bold;
+            margin-top: 30px;
+        }
+
+        .complete-btn {
+            border: none;
+
+            background: #24449a;
+            color: white;
+
+            padding: 15px 28px;
+
+            border-radius: 8px;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 30px;
+        }
+
+        .complete-btn:hover {
+            background: #18357d;
+        }
+
+        /* =====================================================
+           BOTTOM NAVIGATION
+        ===================================================== */
+
+        .bottom-links {
+            margin-top: 35px;
+
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .bottom-links a {
+            color: #24449a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .bottom-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .lesson-card {
+                padding: 25px;
+            }
+
+            .lesson-title {
+                font-size: 28px;
+            }
+
+            .lesson-content {
+                font-size: 16px;
+            }
+
+            .material-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .open-btn {
+                display: inline-block;
+            }
+
+            .bottom-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+
+<div class="navbar">
+
+    <div class="logo">
+        AI-LMS
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('courses') }}">
+            Courses
+        </a>
+
+        <a href="{{ url_for('my_courses') }}">
+            My Courses
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- ============================================================
+     MAIN
+============================================================ -->
+
+<div class="container">
+
+
+    <!-- BACK TO COURSE -->
+
+    <a
+        class="back-link"
+        href="{{ url_for(
+            'course_details',
+            course_id=course.id
+        ) }}"
+    >
+        ← Back to {{ course.title }}
+    </a>
+
+
+    <div class="lesson-card">
+
+
+        <!-- =====================================================
+             COURSE NAME
+        ====================================================== -->
+
+        <div class="course-name">
+
+            Course:
+
+            <strong>
+                {{ course.title }}
+            </strong>
+
+        </div>
+
+
+        <!-- =====================================================
+             LESSON TITLE
+        ====================================================== -->
+
+        <h1 class="lesson-title">
+
+            {{ lesson.title }}
+
+        </h1>
+
+
+        <!-- =====================================================
+             LESSON CONTENT
+        ====================================================== -->
+
+        <div class="lesson-content">
+
+            {{ lesson.content }}
+
+        </div>
+
+
+        <!-- =====================================================
+             STUDY MATERIALS
+        ====================================================== -->
+
+        <div class="materials-section">
+
+            <h2>
+                📚 Study Materials
+            </h2>
+
+
+            {% if materials %}
+
+                {% for material in materials %}
+
+                    <div class="material-card">
+
+
+                        <div>
+
+                            <div class="material-name">
+
+                                📄 {{ material.filename }}
+
+                            </div>
+
+
+                            <div class="material-type">
+
+                                {% if material.file_type %}
+
+                                    {{ material.file_type|upper }}
+
+                                {% else %}
+
+                                    Learning Material
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             STUDENT MATERIAL ROUTE
+                        ================================================== -->
+
+                       <a
+    href="{{ url_for(
+        'student_material',
+        material_id=material.id
+    ) }}"
+    target="_blank"
+    class="open-btn"
+>
+    Open / Download
+</a>
+
+
+                    </div>
+
+                {% endfor %}
+
+
+            {% else %}
+
+                <div class="no-materials">
+
+                    No study materials have been uploaded
+                    for this lesson yet.
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- =====================================================
+             LESSON COMPLETION
+        ====================================================== -->
+
+        {% if progress_record and progress_record.completed %}
+
+
+            <div class="completed-box">
+
+                ✓ Lesson completed successfully!
+
+            </div>
+
+
+        {% else %}
+
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'complete_lesson',
+                    lesson_id=lesson.id
+                ) }}"
+            >
+
+                <button
+                    type="submit"
+                    class="complete-btn"
+                >
+
+                    ✓ Mark Lesson as Complete
+
+                </button>
+
+            </form>
+
+
+        {% endif %}
+
+
+        <!-- =====================================================
+             NAVIGATION
+        ====================================================== -->
+
+        <div class="bottom-links">
+
+
+            <a
+                href="{{ url_for(
+                    'course_details',
+                    course_id=course.id
+                ) }}"
+            >
+
+                ← Course Lessons
+
+            </a>
+
+
+            <a
+                href="{{ url_for('my_courses') }}"
+            >
+
+                My Courses →
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

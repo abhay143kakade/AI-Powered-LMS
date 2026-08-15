@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Courses - AI-LMS</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: #24449a;
+            color: white;
+            padding: 20px 5%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 50px auto;
+        }
+
+        .page-title {
+            color: #24449a;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #555;
+            font-size: 18px;
+            margin-bottom: 35px;
+        }
+
+        /* ================= COURSE CARD ================= */
+
+        .course-card {
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 30px;
+        }
+
+        .course-info {
+            flex: 1;
+        }
+
+        .course-title {
+            color: #24449a;
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .course-description {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* ================= TAGS ================= */
+
+        .tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #e2e9ff;
+            color: #24449a;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            font-size: 14px;
+        }
+
+        /* ================= PROGRESS ================= */
+
+        .progress-section {
+            margin-top: 15px;
+        }
+
+        .progress-text {
+            font-size: 15px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 12px;
+
+            background: #e1e1e1;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+
+            background: #24449a;
+
+            border-radius: 10px;
+
+            transition: width 0.3s ease;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .course-action {
+            min-width: 160px;
+        }
+
+        .btn {
+            display: inline-block;
+
+            background: #24449a;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 13px 22px;
+
+            border-radius: 7px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #18357d;
+        }
+
+        /* ================= COMPLETED ================= */
+
+        .completed {
+            margin-top: 12px;
+
+            color: #18752c;
+
+            font-weight: bold;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty-card {
+            background: white;
+
+            padding: 50px;
+
+            text-align: center;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .empty-card h2 {
+            color: #24449a;
+            margin-bottom: 15px;
+        }
+
+        .empty-card p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .course-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .course-action {
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .page-title {
+                font-size: 30px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<div class="navbar">
+
+    <div class="logo">
+        AI-LMS
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('courses') }}">
+            Courses
+        </a>
+
+        <a href="{{ url_for('my_courses') }}">
+            My Courses
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="container">
+
+
+    <h1 class="page-title">
+        My Courses
+    </h1>
+
+
+    <p class="subtitle">
+        Continue your personalized learning journey.
+    </p>
+
+
+    {% if enrollments %}
+
+
+        <!-- IMPORTANT:
+             Use ONE variable name throughout the loop.
+             Here we use "enrollment".
+        -->
+
+        {% for enrollment in enrollments %}
+
+
+            <div class="course-card">
+
+
+                <div class="course-info">
+
+
+                    <!-- COURSE TITLE -->
+
+                    <h2 class="course-title">
+
+                        {% if enrollment.course %}
+
+                            {{ enrollment.course.title }}
+
+                        {% else %}
+
+                            Course
+
+                        {% endif %}
+
+                    </h2>
+
+
+                    <!-- DESCRIPTION -->
+
+                    {% if enrollment.course %}
+
+                        <p class="course-description">
+
+                            {{ enrollment.course.description }}
+
+                        </p>
+
+
+                        <!-- TAGS -->
+
+                        <div class="tags">
+
+                            {% if enrollment.course.subject %}
+
+                                <span class="tag">
+
+                                    {{ enrollment.course.subject }}
+
+                                </span>
+
+                            {% endif %}
+
+
+                            {% if enrollment.course.difficulty %}
+
+                                <span class="tag">
+
+                                    {{ enrollment.course.difficulty }}
+
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- PROGRESS -->
+
+                    <div class="progress-section">
+
+
+                        <div class="progress-text">
+
+                            Progress:
+                            {{ enrollment.progress or 0 }}%
+
+                        </div>
+
+
+                        <div class="progress-container">
+
+                            <div
+                                class="progress-bar"
+                                style="width: {{ enrollment.progress or 0 }}%;"
+                            ></div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- COMPLETED -->
+
+                    {% if enrollment.completed %}
+
+                        <div class="completed">
+
+                            🎉 Course Completed!
+
+                        </div>
+
+                    {% endif %}
+
+
+                </div>
+
+
+                <!-- ================= ACTION ================= -->
+
+                {% if enrollment.course %}
+
+                    <div class="course-action">
+
+                        <a
+                            class="btn"
+                            href="{{ url_for(
+                                'course_details',
+                                course_id=enrollment.course.id
+                            ) }}"
+                        >
+
+                            {% if enrollment.completed %}
+
+                                Review Course
+
+                            {% else %}
+
+                                Continue Course
+
+                            {% endif %}
+
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+
+        {% endfor %}
+
+
+    {% else %}
+
+
+        <!-- ================= EMPTY ================= -->
+
+        <div class="empty-card">
+
+            <h2>
+                No Courses Yet
+            </h2>
+
+
+            <p>
+                You have not enrolled in any courses yet.
+            </p>
+
+
+            <a
+                class="btn"
+                href="{{ url_for('courses') }}"
+            >
+
+                Browse Courses
+
+            </a>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -38,5 +38,17 @@ class Enrollment(db.Model):
         default=False
     )
 
+    # Relationship with User
+    user = db.relationship(
+        "User",
+        backref="enrollments"
+    )
+
+    # Relationship with Course
+    course = db.relationship(
+        "Course",
+        backref="enrollments"
+    )
+
     def __repr__(self):
         return f"<Enrollment User {self.user_id} Course {self.course_id}>"

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Certificate - AI-LMS</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            background: #f4f7fb;
+
+            color: #222;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+
+            background: #23429a;
+
+            color: white;
+
+            padding: 22px 4%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .logo {
+
+            font-size: 28px;
+
+            font-weight: bold;
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 30px;
+        }
+
+
+        .nav-links a {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 17px;
+        }
+
+
+        .nav-links a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           CONTAINER
+        ===================================================== */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1000px;
+
+            margin: 50px auto;
+        }
+
+
+        /* =====================================================
+           CERTIFICATE
+        ===================================================== */
+
+        .certificate {
+
+            background: white;
+
+            border: 10px solid #23429a;
+
+            padding: 50px;
+
+            text-align: center;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.10);
+        }
+
+
+        .certificate-inner {
+
+            border: 3px solid #d5b45c;
+
+            padding: 50px;
+        }
+
+
+        .certificate h1 {
+
+            color: #23429a;
+
+            font-size: 42px;
+
+            margin:
+                0 0 20px;
+        }
+
+
+        .certificate h2 {
+
+            font-size: 30px;
+
+            margin: 25px 0;
+        }
+
+
+        .certificate p {
+
+            font-size: 18px;
+
+            color: #555;
+
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           STUDENT NAME
+        ===================================================== */
+
+        .student-name {
+
+            font-size: 36px;
+
+            font-weight: bold;
+
+            color: #23429a;
+
+            margin: 25px 0;
+        }
+
+
+        /* =====================================================
+           COURSE NAME
+        ===================================================== */
+
+        .course-name {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            color: #222;
+
+            margin: 20px 0;
+        }
+
+
+        /* =====================================================
+           COMPLETION
+        ===================================================== */
+
+        .completion {
+
+            color: #08752b;
+
+            font-weight: bold;
+
+            font-size: 20px;
+
+            margin-top: 25px;
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .buttons {
+
+            text-align: center;
+
+            margin-top: 30px;
+        }
+
+
+        .button {
+
+            display: inline-block;
+
+            padding: 12px 22px;
+
+            margin: 5px;
+
+            background: #23429a;
+
+            color: white;
+
+            text-decoration: none;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            cursor: pointer;
+        }
+
+
+        .button:hover {
+
+            background: #172f78;
+        }
+
+
+        /* =====================================================
+           PRINT
+        ===================================================== */
+
+        @media print {
+
+            .navbar,
+            .buttons {
+
+                display: none;
+            }
+
+
+            body {
+
+                background: white;
+            }
+
+
+            .container {
+
+                width: 100%;
+
+                margin: 0;
+            }
+
+
+            .certificate {
+
+                box-shadow: none;
+
+                border: 10px solid #23429a;
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+
+            .nav-links {
+
+                gap: 15px;
+            }
+
+
+            .certificate {
+
+                padding: 20px;
+
+                border-width: 6px;
+            }
+
+
+            .certificate-inner {
+
+                padding: 25px;
+            }
+
+
+            .certificate h1 {
+
+                font-size: 30px;
+            }
+
+
+            .student-name {
+
+                font-size: 26px;
+            }
+
+
+            .course-name {
+
+                font-size: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<div class="navbar">
+
+    <div class="logo">
+        AI-LMS
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+
+        <a href="{{ url_for('courses') }}">
+            Courses
+        </a>
+
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CERTIFICATE
+===================================================== -->
+
+<div class="container">
+
+    <div class="certificate">
+
+        <div class="certificate-inner">
+
+
+            <h1>
+                CERTIFICATE OF COMPLETION
+            </h1>
+
+
+            <p>
+                This certificate is proudly presented to
+            </p>
+
+
+            <div class="student-name">
+
+                {{ user }}
+
+            </div>
+
+
+            <p>
+                for successfully completing the course
+            </p>
+
+
+            <div class="course-name">
+
+                {{ course.title }}
+
+            </div>
+
+
+            <p>
+
+                This learner has successfully completed
+                all lessons and achieved 100% course progress
+                through the AI-Powered Learning Management System.
+
+            </p>
+
+
+            <div class="completion">
+
+                ✓ COURSE COMPLETED
+
+            </div>
+
+
+            <p>
+
+                Issued by
+                <strong>AI-Powered Learning Management System</strong>
+
+            </p>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         BUTTONS
+    ===================================================== -->
+
+    <div class="buttons">
+
+
+        <button
+            onclick="window.print()"
+            class="button"
+        >
+
+            🖨 Print / Save PDF
+
+        </button>
+
+
+        <a
+            href="{{ url_for('course_details', course_id=course.id) }}"
+            class="button"
+        >
+
+            ← Back to Course
+
+        </a>
+
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

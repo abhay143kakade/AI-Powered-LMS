@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Add Lesson - AI-LMS</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        .navbar {
+            background: #172554;
+            color: white;
+            padding: 20px 5%;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #172554;
+            margin-top: 0;
+        }
+
+        .course {
+            background: #f1f5ff;
+            padding: 15px;
+            border-radius: 8px;
+            color: #444;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            font-family: Arial, sans-serif;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #23429a;
+        }
+
+        textarea {
+            min-height: 250px;
+            resize: vertical;
+        }
+
+        .hint {
+            font-size: 13px;
+            color: #777;
+            margin-top: 6px;
+        }
+
+        .buttons {
+            margin-top: 25px;
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+        button,
+        .back {
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            border: none;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            font-size: 15px;
+        }
+
+        button {
+            background: #23429a;
+            color: white;
+        }
+
+        button:hover {
+            background: #172f78;
+        }
+
+        .back {
+            background: #e5e7eb;
+            color: #222;
+        }
+
+        .back:hover {
+            background: #d1d5db;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #b91c1c;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            margin: 15px 0;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 95%;
+            }
+
+            .card {
+                padding: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<div class="navbar">
+
+    <div class="logo">
+        AI-LMS ADMIN
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="container">
+
+    <div class="card">
+
+
+        <h1>
+            Add Lesson
+        </h1>
+
+
+        <div class="course">
+
+            Course:
+
+            <strong>
+                {{ course.title }}
+            </strong>
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        {% if error %}
+
+            <div class="error">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             LESSON FORM
+        ================================================== -->
+
+        <form method="POST">
+
+
+            <!-- LESSON ORDER -->
+
+            <label for="lesson_order">
+                Lesson Order
+            </label>
+
+            <input
+                type="number"
+                id="lesson_order"
+                name="lesson_order"
+                min="1"
+                placeholder="Example: 1"
+            >
+
+            <div class="hint">
+                Leave empty to automatically assign the next
+                lesson number.
+            </div>
+
+
+            <!-- LESSON TITLE -->
+
+            <label for="title">
+                Lesson Title
+            </label>
+
+            <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Example: Introduction to Python"
+                required
+            >
+
+
+            <!-- LESSON CONTENT -->
+
+            <label for="content">
+                Lesson Content
+            </label>
+
+            <textarea
+                id="content"
+                name="content"
+                placeholder="Enter the lesson content here..."
+                required
+            ></textarea>
+
+
+            <!-- BUTTONS -->
+
+            <div class="buttons">
+
+                <button type="submit">
+                    ✓ Add Lesson
+                </button>
+
+
+                <a
+                    href="{{ url_for(
+                        'admin_lessons.manage_lessons',
+                        course_id=course.id
+                    ) }}"
+                    class="back"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

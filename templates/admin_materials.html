@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Lesson Materials - AI-LMS</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        .navbar {
+            background: #172554;
+            color: white;
+            padding: 20px 5%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .header,
+        .upload-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.08);
+
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: #172554;
+            margin-top: 0;
+        }
+
+        .lesson-name {
+            color: #666;
+            font-size: 17px;
+        }
+
+        .upload-box h2 {
+            color: #172554;
+            margin-top: 0;
+        }
+
+        input[type="file"] {
+            display: block;
+            width: 100%;
+
+            padding: 15px;
+
+            border: 1px solid #ddd;
+            border-radius: 8px;
+
+            margin-bottom: 15px;
+        }
+
+        .upload-btn {
+            background: #23429a;
+            color: white;
+
+            border: none;
+
+            padding: 12px 22px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .upload-btn:hover {
+            background: #172f78;
+        }
+
+        .allowed {
+            color: #666;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        .material {
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            margin-bottom: 15px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.07);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .filename {
+            font-weight: bold;
+            color: #172554;
+            font-size: 17px;
+        }
+
+        .file-type {
+            margin-top: 6px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 9px 15px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            border: none;
+
+            cursor: pointer;
+
+            font-size: 14px;
+        }
+
+        .view-btn {
+            background: #e2e9ff;
+            color: #23429a;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .back {
+            display: inline-block;
+
+            margin-top: 20px;
+
+            color: #23429a;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .empty {
+            background: #fff3cd;
+
+            color: #856404;
+
+            padding: 20px;
+
+            border-radius: 10px;
+        }
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .material {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .actions {
+                flex-wrap: wrap;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<div class="navbar">
+
+    <div class="logo">
+        AI-LMS ADMIN
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('admin_dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            📚 Lesson Materials
+        </h1>
+
+        <div class="lesson-name">
+
+            Lesson:
+
+            <strong>
+                {{ lesson.title }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         UPLOAD
+    ================================================== -->
+
+    <div class="upload-box">
+
+        <h2>
+            Upload Learning Material
+        </h2>
+
+        <form
+            action="{{ url_for(
+                'admin_materials.upload_material',
+                lesson_id=lesson.id
+            ) }}"
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            <input
+                type="file"
+                name="file"
+                accept=".pdf,.ppt,.pptx,.doc,.docx,.txt"
+                required
+            >
+
+            <button
+                type="submit"
+                class="upload-btn"
+            >
+                📤 Upload File
+            </button>
+
+        </form>
+
+        <div class="allowed">
+
+            Allowed:
+            PDF, PPT, PPTX, DOC, DOCX, TXT
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         MATERIAL LIST
+    ================================================== -->
+
+    {% if materials %}
+
+        {% for material in materials %}
+
+            <div class="material">
+
+
+                <div>
+
+                    <div class="filename">
+
+                        📄 {{ material.filename }}
+
+                    </div>
+
+                    <div class="file-type">
+
+                        Type:
+                        {{ material.file_type|upper }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="actions">
+
+
+                    <!-- VIEW -->
+
+                    <a
+                        href="{{ url_for(
+                            'admin_materials.download_material',
+                            material_id=material.id
+                        ) }}"
+                        target="_blank"
+                        class="btn view-btn"
+                    >
+                        👁 View
+                    </a>
+
+
+                    <!-- DELETE -->
+
+                    <form
+                        action="{{ url_for(
+                            'admin_materials.delete_material',
+                            material_id=material.id
+                        ) }}"
+                        method="POST"
+                        onsubmit="return confirm(
+                            'Delete this material?'
+                        );"
+                    >
+
+                        <button
+                            type="submit"
+                            class="btn delete-btn"
+                        >
+                            🗑 Delete
+                        </button>
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <div class="empty">
+
+            No materials uploaded for this lesson yet.
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- BACK -->
+
+    <a
+        href="{{ url_for(
+            'admin_lessons.manage_lessons',
+            course_id=lesson.course_id
+        ) }}"
+        class="back"
+    >
+        ← Back to Lessons
+    </a>
+
+
+</div>
+
+
+</body>
+
+</html>
